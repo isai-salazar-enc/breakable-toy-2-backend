@@ -12,8 +12,11 @@ import java.util.Map;
 @RestController
 public class AuthController {
 
-    @Autowired
-    private AuthServiceInterface authService;
+    private final AuthServiceInterface authService;
+
+    public AuthController(AuthServiceInterface authService){
+        this.authService = authService;
+    }
 
     // Receive the code and return the authorization token
     public ResponseEntity<?> getSpotifyToken(@RequestBody Map<String, String> body){
