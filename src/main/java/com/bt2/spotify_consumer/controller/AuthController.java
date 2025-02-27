@@ -10,7 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Map;
 
 @RestController
-public class AuthController {
+public class AuthController implements AuthControllerInterface{
 
     private final AuthServiceInterface authService;
 
