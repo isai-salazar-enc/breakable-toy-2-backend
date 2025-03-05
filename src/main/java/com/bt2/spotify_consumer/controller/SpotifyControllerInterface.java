@@ -11,7 +11,6 @@ public interface SpotifyControllerInterface {
     @GetMapping("/artists/{id}")
     public ResponseEntity<?> getArtistInfo(@RequestHeader("Authorization") String accessToken, @RequestHeader("Refresh-Token") String refreshToken, @PathVariable(value = "id") String id);
 
-// TODO:
-//    @GetMapping("/albums/{id}")
-//    public ResponseEntity<?> getAlbumTracks(@PathVariable(value = "id") Long id);
+    @GetMapping("/albums/{id}")
+    public ResponseEntity<?> getAlbumInfo(@RequestHeader("Authorization") String accessToken, @RequestHeader("Refresh-Token") String refreshToken, @PathVariable(value = "id") String id);
 }

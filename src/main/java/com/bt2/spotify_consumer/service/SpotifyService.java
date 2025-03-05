@@ -18,6 +18,7 @@ public class SpotifyService implements SpotifyServiceInterface{
     private final RestTemplate restTemplate;
     private final String SPOTIFY_API_ARTISTS_URL = "https://api.spotify.com/v1/me/top/artists";
     private final String SPOTIFY_API_SINGLE_ARTIST_URL = "https://api.spotify.com/v1/artists/";
+    private final String SPOTIFY_API_SINGLE_ALBUM_URL = "https://api.spotify.com/v1/albums/";
 
     public SpotifyService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
@@ -66,7 +67,6 @@ public class SpotifyService implements SpotifyServiceInterface{
         return artistInfo;
     }
 
-
     private String fetchArtistInfo(String accessToken, String refreshToken, String id, String infoType) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", accessToken);
@@ -84,4 +84,20 @@ public class SpotifyService implements SpotifyServiceInterface{
         }
     }
 
+    @Override
+    public String fetchAlbumInfo(String accessToken, String refreshToken, String id) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", accessToken);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        try {
+            String url = SPOTIFY_API_SINGLE_ALBUM_URL + id;
+            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+            return response.getBody();
+        } catch (HttpClientErrorException | HttpServerErrorException ex) {
+            throw new RuntimeException("Error fetching artist information from Spotify: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
+        }
+    }
 }

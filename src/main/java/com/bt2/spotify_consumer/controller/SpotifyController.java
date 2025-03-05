@@ -37,5 +37,15 @@ public class SpotifyController implements SpotifyControllerInterface{
         return ResponseEntity.ok(response);
     }
 
+    @Override
+    public ResponseEntity<?> getAlbumInfo(String accessToken, String refreshToken, String id) {
+        if (accessToken == null || !accessToken.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing Bearer token");
+        }
+
+        String response = spotifyService.fetchAlbumInfo(accessToken, refreshToken, id);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
