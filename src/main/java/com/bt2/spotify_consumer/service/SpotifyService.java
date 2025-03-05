@@ -1,10 +1,7 @@
 package com.bt2.spotify_consumer.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
@@ -96,6 +93,21 @@ public class SpotifyService implements SpotifyServiceInterface{
             return response.getBody();
         } catch (HttpClientErrorException | HttpServerErrorException ex) {
             throw new RuntimeException("Error fetching artist information from Spotify: " + ex.getMessage(), ex);
+        } catch (Exception ex) {
+            throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
+        }
+    }
+
+    @Override
+    public String fetchQuery(String accessToken, String refreshToken, String type, String query) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", accessToken);
+        HttpEntity<String> entity = new HttpEntity<>(headers);
+
+        String url = "https://api.spotify.com/v1/search?q=" + query + "&type=" + type + "&limit=5";
+
+        try {
+            return restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
         } catch (Exception ex) {
             throw new RuntimeException("Unexpected error occurred: " + ex.getMessage(), ex);
         }

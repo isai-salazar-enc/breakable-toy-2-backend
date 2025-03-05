@@ -13,4 +13,7 @@ public interface SpotifyControllerInterface {
 
     @GetMapping("/albums/{id}")
     public ResponseEntity<?> getAlbumInfo(@RequestHeader("Authorization") String accessToken, @RequestHeader("Refresh-Token") String refreshToken, @PathVariable(value = "id") String id);
+
+    @GetMapping("/search")
+    public ResponseEntity<?>  querySearch(@RequestHeader("Authorization") String accessToken, @RequestHeader("Refresh-Token") String refreshToken, @RequestParam String query, @RequestParam(defaultValue = "artist,track,album") String type);
 }

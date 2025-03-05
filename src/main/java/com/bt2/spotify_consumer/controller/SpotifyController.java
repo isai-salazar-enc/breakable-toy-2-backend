@@ -47,5 +47,15 @@ public class SpotifyController implements SpotifyControllerInterface{
         return ResponseEntity.ok(response);
     }
 
+    @Override
+    public ResponseEntity<?> querySearch(String accessToken, String refreshToken, String query, String type) {
+        if (accessToken == null || !accessToken.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing Bearer token");
+        }
+
+        String response = spotifyService.fetchQuery(accessToken, refreshToken, type, query);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
