@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
 public class SpotifyController implements SpotifyControllerInterface{
@@ -24,4 +26,16 @@ public class SpotifyController implements SpotifyControllerInterface{
         String response = spotifyService.fetchArtists(accessToken, refreshToken);
         return ResponseEntity.ok(response);
     }
+
+    @Override
+    public ResponseEntity<?> getArtistInfo(String accessToken, String refreshToken, String id) {
+        if (accessToken == null || !accessToken.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or missing Bearer token");
+        }
+
+        Map<String, Object> response = spotifyService.fetchSingleArtist(accessToken, refreshToken, id);
+        return ResponseEntity.ok(response);
+    }
+
+
 }
