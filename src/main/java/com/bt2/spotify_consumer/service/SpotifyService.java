@@ -49,13 +49,16 @@ public class SpotifyService implements SpotifyServiceInterface{
         try {
             String artistJson = fetchArtistInfo(accessToken, refreshToken, id, "");
             String albumsJson = fetchArtistInfo(accessToken, refreshToken, id, "albums?limit=5");
+            String topTracksJson = fetchArtistInfo(accessToken, refreshToken, id, "top-tracks");
 //            String related_artists = fetchArtistInfo(accessToken, refreshToken, id, "related-artists");
 
             Map<String, Object> artist = objectMapper.readValue(artistJson, Map.class);
             Map<String, Object> albums = objectMapper.readValue(albumsJson, Map.class);
+            Map<String, Object> topTracks = objectMapper.readValue(topTracksJson, Map.class);
 
             artistInfo.put("artist", artist);
             artistInfo.put("albums", albums);
+            artistInfo.put("top-tracks", topTracks);
 //            artistInfo.put("related-artists", related_artists);
         } catch (Exception e) {
             throw new RuntimeException(e);
