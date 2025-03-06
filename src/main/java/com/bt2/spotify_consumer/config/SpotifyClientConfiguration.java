@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class SpotifyClientConfiguration {
 
     // Manage RestTemplate as a bean to inject it and avoid creating new instances in each method
-    @Bean
+    @Bean(name = "restTemplate")
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
