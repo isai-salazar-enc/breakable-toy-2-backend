@@ -56,7 +56,7 @@ public class SpotifyService implements SpotifyServiceInterface{
 
             artistInfo.put("artist", artist);
             artistInfo.put("albums", albums);
-            artistInfo.put("top-tracks", topTracks);
+            artistInfo.put("top_tracks", topTracks);
 //            artistInfo.put("related-artists", related_artists);
         } catch (Exception e) {
             throw new RuntimeException(e);
