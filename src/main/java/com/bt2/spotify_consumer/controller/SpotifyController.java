@@ -20,7 +20,7 @@ public class SpotifyController implements SpotifyControllerInterface{
     @Override
     public ResponseEntity<?> getTopArtists(String accessToken, String refreshToken) {
         SpotifyValidations.validateBearerToken(accessToken);
-        String response = spotifyService.fetchArtists(accessToken, refreshToken);
+        Map<String, Object> response = spotifyService.fetchArtists(accessToken, refreshToken);
         return ResponseEntity.ok(response);
     }
 

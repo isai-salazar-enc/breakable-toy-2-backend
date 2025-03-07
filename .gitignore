@@ -38,3 +38,12 @@ out/
 
 .env
 *.env
+
+# Docker
+**/docker-compose.override.yml
+**/db_data
+**/logs
+**/tmp
+**/.dockerignore
+
+.DS_Store
