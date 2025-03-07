@@ -54,18 +54,21 @@ public class AuthService implements AuthServiceInterface {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
         params.add("grant_type", "refresh_token");
         params.add("refresh_token", refreshToken);
+        params.add("client_id", spotifyConfig.getClientId());
 
         // Create http request
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(params, headers);
         RestTemplate restTemplate = new RestTemplate();
+//        System.out.println(request);
         Map<String, String> responseBody = restTemplate.postForEntity(spotifyConfig.getSpotifyTokenUrl(), request, Map.class).getBody(); //url, request, response type
+        System.out.println(responseBody);
         if (responseBody != null && responseBody.containsKey("refresh_token") && responseBody.containsKey("access_token")) {
             Map<String, String> tokens = new HashMap<>();
             tokens.put("access_token", responseBody.get("access_token"));
             tokens.put("refresh_token", responseBody.get("refresh_token"));
             return tokens;
         }
-
-        throw new UnauthorizedException("Invalid token");
+        System.out.println("NO TOKEN");
+        throw new UnauthorizedException("No refresh token obtained");
     }
 }

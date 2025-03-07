@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
 
-@RestControllerAdvice // Indica que esta clase maneja excepciones de forma global
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     // Handle custom unauthorized
@@ -40,6 +40,7 @@ public class GlobalExceptionHandler {
                 "Internal server error",
                 "An unexpected error occurred"
         );
+        System.out.println(ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseError);
     }
 }

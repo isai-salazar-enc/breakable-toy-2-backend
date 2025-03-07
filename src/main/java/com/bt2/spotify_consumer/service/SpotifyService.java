@@ -33,7 +33,6 @@ public class SpotifyService implements SpotifyServiceInterface{
             return parseResponseToMap(response.getBody());
         } catch (HttpClientErrorException.Unauthorized ex) { // Retry and refresh
                 return fetchArtistsWithNewTokens(refreshToken);
-
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
@@ -126,8 +125,8 @@ public class SpotifyService implements SpotifyServiceInterface{
     private Map<String, Object> addTokensToResponse(HttpEntity response, String newAccessToken, String newRefreshToken) {
         Map<String, Object> responseData = new HashMap<>();
         responseData.put("data", response.getBody());
-        responseData.put("access_token", newAccessToken);
-        responseData.put("refresh_token", newRefreshToken);
+        responseData.put("new_access_token", newAccessToken);
+        responseData.put("new_refresh_token", newRefreshToken);
         return responseData;
     }
 }
