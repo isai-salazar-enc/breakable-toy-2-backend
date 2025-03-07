@@ -1,8 +1,8 @@
 package com.bt2.spotify_consumer.controller;
 
 import com.bt2.spotify_consumer.service.AuthServiceInterface;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthController implements AuthControllerInterface{
 
     private final AuthServiceInterface authService;
